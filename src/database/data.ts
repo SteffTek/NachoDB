@@ -17,6 +17,7 @@ export default class Data {
     _id: ID;
     private _ttl: number;
     private _schema: Schema;
+    private _offline: boolean = false;
     private _timestamp: number | null = null;
     constructor(_schema: Schema, _data: any) {
         /**

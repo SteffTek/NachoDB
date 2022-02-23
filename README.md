@@ -32,3 +32,5 @@ A fast, decentral, in-memory database for NoSQL documents.
 - (TBD) On initialisation, ask for every document on every schema over the network and sync it into the local storage adapter
 - Eventually, all clients will be synced (Eventual Consistency Theroem)
 - Maybe it makes sense, i dunno
+- If you try to send data, but you are offline, a document is marked as offline, and will retry on reconnect to send it
+- Offline Marked Documents are loaded on startup
