@@ -2,6 +2,7 @@
  * Imports
  */
 import Data from "../database/data";
+import Schema from "../database/schema";
 
 /**
  * Base Class of all Storage Adapters in Nacho to store longterm data.
@@ -34,17 +35,19 @@ export default class IStorageAdapter {
 
     /**
      * Get Documents by Filter
+     * @param {Schema} _schema the schema that needs to be searched
      * @param {object} _filter filter object
      * @return {Array<Data>} Data object
      */
-    find(_filter: object): Array<Data> { return [] }
+    find(_schema: Schema, _filter: object): Array<Data> { return [] }
 
     /**
      * Find One Document by filter
+     * @param {Schema} _schema the schema that needs to be searched
      * @param {object} _filter filter object
      * @return {Data} Data object
      */
-    findOne(_filter: object): Data | null { return null }
+    findOne(_schema: Schema, _filter: object): Data | null { return null }
 
     /**
      * Remove Document by ID

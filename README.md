@@ -17,6 +17,7 @@ A fast, decentral, in-memory database for NoSQL documents.
 #### Storage (Integrated in Core)
 - LocalBowl (localStore)
 - MangoBowl (MongoDB)
+- JSONBowl (JSON File)
 
 ### Storage Priority
 - In-Memory Storage (Data will be voided after TTL exceeded)
@@ -34,3 +35,4 @@ A fast, decentral, in-memory database for NoSQL documents.
 - Maybe it makes sense, i dunno
 - If you try to send data, but you are offline, a document is marked as offline, and will retry on reconnect to send it
 - Offline Marked Documents are loaded on startup
+- If you don't have a storage adapter, or ttl runs out and your document is still marked offline, it may never be added to the database
