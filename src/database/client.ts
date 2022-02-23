@@ -1,7 +1,8 @@
 /**
  * Imports
  */
-import NachoError from "../utils/error";
+import IStorageAdapter from "../storage/IStorageAdapater";
+import NachoError from "../utils/NachoError";
 import Schema from './schema';
 import Store from './store';
 
@@ -15,13 +16,15 @@ interface Schemas {[key: string]: Schema}
  */
 export default class Client {
     _store: Store;
-    schemas: Schemas
-    constructor({ }) {
+    schemas: Schemas;
+    _storage: IStorageAdapter | null;
+    constructor({ storageAdapter = null }: { storageAdapter?: IStorageAdapter | null }={}) {
         /**
          * Init Default Values
          */
         this.schemas = {};
         this._store = new Store(this);
+        this._storage = storageAdapter;
     }
 
     /**

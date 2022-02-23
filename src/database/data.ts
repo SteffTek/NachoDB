@@ -2,8 +2,8 @@
  * Imports
  */
 import Schema from './schema';
-import NachoError from "../utils/error";
-import { generate as generateID, validate as validateID } from '../utils/ID';
+import NachoError from "../utils/NachoError";
+import ID, { validate as validateID} from '../utils/ID';
 
 /**
  * Interfaces
@@ -14,10 +14,10 @@ import { generate as generateID, validate as validateID } from '../utils/ID';
  * This file is resolved data from a schema.
  */
 export default class Data {
-    _id: string;
+    _id: ID;
     private _ttl: number;
     private _schema: Schema;
-    private _timestamp: number;
+    private _timestamp: number | null = null;
     constructor(_schema: Schema, _data: any) {
         /**
          * Set Data
@@ -33,16 +33,14 @@ export default class Data {
         /**
          * Create Defaults
          */
-        this._timestamp = Date.now();
+        if(!this._timestamp) {
+            this._timestamp = Date.now();
+        }
 
         /**
          * Check for ID
          */
-        if(!_data._id) {
-            // Create new ID
-            _data._id = generateID();
-        }
-        this._id = _data._id;
+        this._id = new ID(_data._id);
 
         /**
          * Check for ID
@@ -65,6 +63,8 @@ export default class Data {
      */
     public save(): void {
         if(!this._schema._client) return;
+        // Refresh current state (_timestamp)
+        this._timestamp = Date.now();
         this._schema._client._store.add(this);
     }
 
@@ -73,6 +73,8 @@ export default class Data {
      */
     public delete(): void {
         if(!this._schema._client) return;
+        // Refresh current state (_timestamp)
+        this._timestamp = Date.now();
         this._schema._client._store.remove(this._id);
     }
 }

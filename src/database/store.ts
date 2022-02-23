@@ -3,6 +3,7 @@
  */
 import Client from "./client";
 import Data from "./data";
+import ID from "../utils/ID";
 
 /**
  * Storing Data
@@ -31,16 +32,16 @@ export default class Store {
         // TODO Events
     }
 
-    get(_id: string): Data | null {
-        return this._data.find(data => data._id === _id) || null;
+    get(_id: ID): Data | null {
+        return this._data.find(data => ID.compare(data._id, _id)) || null;
     }
 
     getAll(): Array<Data> {
         return this._data;
     }
 
-    remove(_id: string): void {
-        this._data = this._data.filter(data => data._id !== _id);
+    remove(_id: ID): void {
+        this._data = this._data.filter(data => !ID.compare(data._id, _id));
 
         // TODO Events
     }
@@ -48,7 +49,7 @@ export default class Store {
     update(_data: Data): void {
         // Set new data to persiting data
         this._data = this._data.map(data => {
-            if(data._id === _data._id) {
+            if(ID.compare(data._id, _data._id)) {
                 return _data;
             }
             return data;

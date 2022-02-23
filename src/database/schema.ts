@@ -2,7 +2,7 @@
  * Imports
  */
 import ValidateData from "../utils/validateData";
-import NachoError from "../utils/error";
+import NachoError from "../utils/NachoError";
 import Client from './client';
 import Data from "./data";
 
@@ -105,4 +105,22 @@ export default class Schema {
         const result = ValidateData(_data);
         // TODO
     }
+
+    /**
+     * Returns Initiator/Schema Name
+     * @returns {string}
+     */
+    public toString(): string | null{
+        return this._initiator;
+    }
+
+
+    /**
+     * Filter / Find / Etc Functions
+     */
+
+    find(): void {};
+    findOne(): void {};
+    remove(): void {};
+    removeByID(): void {};
 }

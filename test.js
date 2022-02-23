@@ -1,9 +1,9 @@
-const { Client, Schema } = require("./dist/index");
+const { Client, Schema, Types } = require("./dist/index");
+
+console.log(new Types.ID().toString());
 
 
-const client = new Client({
-
-});
+const client = new Client();
 
 /**
  * Create a new schema
@@ -27,6 +27,9 @@ const document = client.schemas.Test.create({
 });
 
 document.save();
+
+console.log(client._store);
+
 document.delete();
 
 /**
@@ -36,9 +39,7 @@ document.delete();
 // NEW
 // UPDATED
 // DELETE
-client.on("Test", test);
-
-client.off("Test", test);
+// schema.on("new/update/delete", (data) => {});
 
 /**
  * Netzwerk "Protokoll" Sockets
